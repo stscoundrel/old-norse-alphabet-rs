@@ -1,6 +1,10 @@
 use std::cmp::Ordering;
 use crate::alphabet::get_sorting_alphabet;
 
+fn length(content: &str) -> usize {
+    content.chars().count()
+}
+
 fn get_character_by_index(string: &str, index: &usize) -> char {
     string.to_lowercase().chars().nth(*index).unwrap()
 }
@@ -19,11 +23,11 @@ pub fn compare(a: &str, b: &str, index: usize, alphabet: Vec<&char>) -> Ordering
         return Ordering::Equal;
       }
     
-      if a.chars().count() <= index {
+      if length(a) <= index {
           return Ordering::Less;
       }
 
-      if b.chars().count() <= index {
+      if length(b) <= index {
           return Ordering::Greater;
       }
 
