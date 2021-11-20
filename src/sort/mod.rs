@@ -2,10 +2,10 @@ use std::cmp::Ordering;
 use crate::alphabet::get_sorting_alphabet;
 
 fn get_character_by_index(string: &str, index: &usize) -> char {
-    string.chars().nth(*index).unwrap()
+    string.to_lowercase().chars().nth(*index).unwrap()
 }
 
-fn get_index_of_character(character: &char, alphabet: &Vec<&char>) -> i32 {
+fn get_index_of_character(character: &char, alphabet: &[&char]) -> i32 {
     let result = alphabet.iter().position(|letter| letter.eq(&character));
 
     match result {
@@ -19,16 +19,16 @@ pub fn compare(a: &str, b: &str, index: usize, alphabet: Vec<&char>) -> Ordering
         return Ordering::Equal;
       }
     
-      if a.len() <= index {
+      if a.chars().count() <= index {
           return Ordering::Less;
       }
 
-      if b.len() <= index {
+      if b.chars().count() <= index {
           return Ordering::Greater;
       }
 
-      let a_letter: char = get_character_by_index(&a, &index);
-      let b_letter: char = get_character_by_index(&b, &index);
+      let a_letter: char = get_character_by_index(a, &index);
+      let b_letter: char = get_character_by_index(b, &index);
       let index_a: i32 = get_index_of_character(&a_letter, &alphabet);
       let index_b: i32 = get_index_of_character(&b_letter, &alphabet);
     
@@ -72,7 +72,50 @@ mod tests {
         
         words.sort_by(|a, b| old_norse_sort(a, b));
 
-        assert!(vecs_are_equal(&words, &expected));
+        assert!(vecs_are_equal(&words, &expected));        
+    }
+
+    #[test]
+    fn sorts_with_identical_words() {
+        let mut words = vec!["aðili", "maðka", "þakkan", "maðka"];
+        let expected = vec!["aðili", "maðka", "maðka", "þakkan"];
         
+        words.sort_by(|a, b| old_norse_sort(a, b));
+
+        assert!(vecs_are_equal(&words, &expected));        
+    }
+
+    #[test]
+    fn sorts_mixed_upper_and_lower_letters() {
+        let mut words = vec!["aðili", "maðka", "þakkan", "adal", "ADAL", "maðka"];
+        let expected = vec!["adal", "ADAL", "aðili", "maðka", "maðka", "þakkan"];
+        
+        words.sort_by(|a, b| old_norse_sort(a, b));
+
+        assert!(vecs_are_equal(&words, &expected));        
+    }
+
+    #[test]
+    fn word_length_applies_when_sorting() {
+        let mut words = vec!["aðild", "AÐAL", "abbast", "aðal-vellir", "AÐA", "abbindi"];
+        let expected = vec!["abbast", "abbindi", "AÐA", "AÐAL", "aðal-vellir", "aðild"];
+        
+        words.sort_by(|a, b| old_norse_sort(a, b));
+
+        for (_, word) in words.iter().enumerate() {
+            println!("{}", word);
+        }
+
+        assert!(vecs_are_equal(&words, &expected));        
+    }
+
+    #[test]
+    fn sorts_uncommon_and_loaned_letters() {
+        let mut words = vec!["Gerzkr", "ger", "hal-dreki", "ÆZLI", "gervi", "eyxn", "halzi", "æxling"];
+        let expected = vec!["eyxn", "ger", "gervi", "Gerzkr", "hal-dreki", "halzi", "æxling", "ÆZLI"];
+        
+        words.sort_by(|a, b| old_norse_sort(a, b));
+
+        assert!(vecs_are_equal(&words, &expected));        
     }
 }
