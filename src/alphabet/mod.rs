@@ -12,7 +12,7 @@ pub const ETH: char = 'ð';
 pub const THORN: char = 'þ';
 pub const O_CAUDATA: char = 'ǫ';
 pub const ASH: char = 'æ';
-pub const SLASHED_O: char = 'Ø';
+pub const SLASHED_O: char = 'ø';
 pub const OE: char = 'œ';
 pub const AE: char = ASH;
 
