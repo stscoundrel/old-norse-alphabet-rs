@@ -15,7 +15,7 @@ Add this to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-old-norse-alphabet = "1.0.0"
+old_norse_alphabet = "1.0.0"
 ```
 
 ### About Old Norse
