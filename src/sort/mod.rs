@@ -53,6 +53,21 @@ pub fn compare(a: &str, b: &str, index: usize, alphabet: Vec<&char>) -> Ordering
       index_a.cmp(&index_b)
 }
 
+
+/// Comparison function to sort by Old Norse alphabetical order.
+/// Can be hooked to vec.sort_by()
+/// 
+/// # Examples
+/// 
+/// ```
+/// use old_norse_alphabet::old_norse_sort;
+/// 
+/// let mut words = vec!["madr", "hal-dreki", "ÆZLI", "gervi", "eyxn", "halzi", "æxling"];
+/// words.sort_by(|a, b| old_norse_sort(a, b));
+/// 
+/// // Order is now: ["eyxn", "gervi", "hal-dreki", "halzi", "madr", "æxling", "ÆZLI"]
+/// 
+/// ```
 pub fn old_norse_sort(a: &str, b: &str) -> Ordering {
     let alphabet = get_sorting_alphabet();
 
