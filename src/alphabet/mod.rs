@@ -8,22 +8,67 @@ const ADDITIONAL_CHARS: [char; 3] = ['ö', 'x', 'z'];
 const VALID_AS_FIRST: [char; 32] = ['a', 'á', 'b', 'd', 'e', 'é', 'f', 'g', 'h', 'i', 'í', 'j', 'k', 'l', 'm', 'n', 'o', 'ó', 'p', 'r', 's', 't', 'u', 'ú', 'v', 'y', 'ý', 'þ', 'æ', 'ǫ', 'ø', 'œ'];
 
 // "Special" letters.
+
+/// ð
 pub const ETH: char = 'ð';
+/// þ
 pub const THORN: char = 'þ';
+/// ǫ
 pub const O_CAUDATA: char = 'ǫ';
+/// æ
 pub const ASH: char = 'æ';
+/// ø
 pub const SLASHED_O: char = 'ø';
+/// œ
 pub const OE: char = 'œ';
+/// Same as ash, æ
 pub const AE: char = ASH;
 
+/// Return old norse alphabet in uppercase.
+/// 
+/// # Examples
+/// 
+/// ```
+/// use old_norse_alphabet::get_uppercase;
+/// 
+/// let alphabet = get_uppercase();
+///
+/// let alphabet_has_ae = alphabet.contains(&'Æ');
+/// assert!(alphabet_has_ae);
+/// ```
 pub fn get_uppercase() -> [char; 34] {
     ALPHABET_UPPER
 }
 
+/// Return old norse alphabet in lowercase.
+/// 
+/// # Examples
+/// 
+/// ```
+/// use old_norse_alphabet::get_lowercase;
+/// 
+/// let alphabet = get_lowercase();
+///
+/// let alphabet_has_ae = alphabet.contains(&'æ');
+/// assert!(alphabet_has_ae);
+/// ```
 pub fn get_lowercase() -> [char; 34] {
     ALPHABET_LOWER
 }
 
+/// Return old norse alphabet letters that are valid as a first letter.
+/// To put it simply: this does not include letter ð
+/// 
+/// # Examples
+/// 
+/// ```
+/// use old_norse_alphabet::get_valid_as_first;
+/// 
+/// let alphabet = get_valid_as_first();
+///
+/// let alphabet_has_eth = alphabet.contains(&'ð');
+/// assert!(!alphabet_has_eth);
+/// ```
 pub fn get_valid_as_first() -> [char; 32] {
     VALID_AS_FIRST
 }

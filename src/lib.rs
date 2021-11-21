@@ -1,3 +1,9 @@
+//! Old Norse alphabet constants & sort for Rust.
+//! 
+//! Old Norse constains letters that may be hard to type with most keyboards. Prime examples being þ, ð and ǫ. There are also some letters "missing", like c and q. This package offers the alphabet & tricky individual letters as JS constants.
+//! 
+//! Also provides sorting function to get the old norse alphabet order just right.
+
 mod alphabet;
 mod sort;
 
